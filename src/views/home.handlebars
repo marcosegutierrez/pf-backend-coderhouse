@@ -1,0 +1,20 @@
+<h2>Home!</h2>
+{{#if products.length}}
+    {{#each products}}
+        <ul>
+            <li>{{id}}</li>
+            <li>{{title}}</li>
+            <li>{{description}}</li>
+            <li>{{code}}</li>
+            <li>{{price}}</li>
+            <li>{{status}}</li>
+            <li>{{stock}}</li>
+            <li>{{category}}</li>
+            {{#if thumbnails.length}}
+            <li>{{thumbnails}}</li>
+            {{/if}}
+        </ul>
+    {{/each}}
+{{else}}
+    <p>There are no registered products</p>
+{{/if}}

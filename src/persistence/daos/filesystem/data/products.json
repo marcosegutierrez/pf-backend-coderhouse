@@ -1,0 +1,60 @@
+[
+    {
+        "id": 1,
+        "title": "Producto de prueba 1",
+        "description": "Este es un producto de prueba",
+        "code": "123aaa",
+        "price": 500,
+        "status": true,
+        "stock": 100,
+        "category": "Almacen",
+        "thumbnails": [
+            "/Img1.png"
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Producto de prueba",
+        "description": "Este es un producto de prueba",
+        "code": "123aab",
+        "price": 500,
+        "status": true,
+        "stock": 100,
+        "category": "Bebidas",
+        "thumbnails": [
+            "/Img1.png",
+            "/Img2.png",
+            "/Img3.png"
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Producto de prueba",
+        "description": "Este es un producto de prueba",
+        "code": "123aac",
+        "price": 500,
+        "status": true,
+        "stock": 100,
+        "category": "Bebidas",
+        "thumbnails": [
+            "/Img1.png",
+            "/Img2.png",
+            "/Img3.png"
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Producto de prueba",
+        "description": "Este es un producto de prueba",
+        "code": "123aad",
+        "price": 500,
+        "status": true,
+        "stock": 100,
+        "category": "Bebidas",
+        "thumbnails": [
+            "/Img1.png",
+            "/Img2.png",
+            "/Img3.png"
+        ]
+    }
+]

@@ -1,0 +1,39 @@
+<h1><u>Products</u></h1>
+{{#if req.session.first_name}}
+    <h2> Welcome {{req.session.first_name}} {{req.session.last_name}}! </h2>
+    <h3> Rol: {{req.session.role}} </h3>
+{{/if}}
+
+{{#if docs.length}}
+    <p>Number of products: {{docs.length}}</p>
+    {{#each docs}}
+        <ul>
+            <li>ID: {{_id}}</li>
+            <li>Title: {{title}}</li>
+            <li>Description: {{description}}</li>
+            <li>Code: {{code}}</li>
+            <li>Price: {{price}}</li>
+            <li>Status: {{status}}</li>
+            <li>Stock: {{stock}}</li>
+            <li>Category: {{category}}</li>
+            {{#if thumbnails.length}}
+                <li>Thumbnails:</li>
+                <ul>
+                    {{#each thumbnails}}
+                        <li><img src="{{this}}" alt="Thumbnail"></li>
+                    {{/each}}
+                </ul>
+            {{/if}}
+        </ul>
+    {{/each}}
+{{else}}
+    <p>There are no registered products</p>
+{{/if}}
+
+<form action="/users/logout" method="post">
+    <input type="submit" value="LOGOUT">
+</form>
+<br>
+<form action="/users/resetpass" method="post">
+    <input type="submit" value="RESTABLECER CONTRASEÑA">
+</form>

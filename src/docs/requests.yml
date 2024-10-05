@@ -1,0 +1,117 @@
+components:
+  parameters:
+    schemas:
+      Products:
+        type: object
+        required:
+          - title
+          - description
+          - code
+          - price
+          - status
+          - stock
+          - category
+          - thumbnails
+        properties:
+          title:
+            type: string
+            description: Nombre del producto
+            example: Yerba Rosamonte 1kg
+          description:
+            type: string
+            description: Descripcion del producto
+            example: Yerba Rosamonte Suave 1kg
+          code:
+            type: string
+            description: Codigo del producto.
+            example: abc123
+          price:
+            type: integer
+            description: Precio del producto
+            example: 100
+          status:
+            type: boolean
+            description: Estado activo del producto
+            example: true
+          stock:
+            type: integer
+            description: Cantidad disponible del producto
+            example: 50
+          category:
+            type: string
+            description: Categoría a la cuál pertenece el producto
+            example: Almacen
+          thumbnails:
+            type: array
+            description: Url de las imagenes.
+            example: ["/Img1.png", "/Img2.png"]
+      ProductQuantity:
+        type: object
+        required:
+          - quantity
+        properties:
+          quantity:
+            type: integer
+            description: Cantidad del producto
+            example: 10
+      ProductsArray:
+        type: object
+        required:
+          - products
+        properties:
+          products:
+            type: array
+            description: ids de productos
+            example: ["667416b9a7fd9e314e713adc","6674576d236372944cb6ccaf"]
+      LoginUser:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            description: Email del usuario
+            example: juan@mail.com
+          password:
+            type: string
+            descripcion: Contraseña del usuario
+            example: "1234"
+      RegisterUser:
+        type: object
+        required:
+          - first_name
+          - lasst_name
+          - email
+          - age
+          - password
+        properties:
+          first_name:
+            type: string
+            description: Nombre del usuario
+            example: Juan
+          last_name:
+            type: string
+            description: Apellido del usuario
+            example: Perez
+          email:
+            type: string
+            description: Email del usuario
+            example: juan.perez@mail.com
+          age:
+            type: integer
+            description: Edad del usuario
+            example: 30
+          password:
+            type: string
+            descripcion: Contraseña del usuario
+            example: "ac815w"
+      UserNewPassword:
+        type: object
+        required:
+          - password
+        properties:
+          password:
+            type: string
+            descripcion: Contraseña del usuario
+            example: "ac815w"

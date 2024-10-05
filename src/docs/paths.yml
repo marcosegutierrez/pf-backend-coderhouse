@@ -1,0 +1,557 @@
+paths:
+  /users/login-api-client:
+    post:
+      tags:
+      - Login User
+      summary: Logeo de usuario
+      description: Logear usuario en el sistema
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/LoginUser'
+        required: true
+      responses:
+        200:
+          description: Login Ok.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Login/LoginOk'
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'
+        401:
+          description: No autorizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/Unauthorized'
+  /api/products:
+    get:
+      tags:
+      - Products
+      summary: Lista de productos.
+      responses:
+        200: 
+          description: Lista de productos.
+          content:
+            application/json:
+              schema:
+                type: array
+                $ref: '#/components/schema/Products/GetAllProducts'      
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'        
+    post:
+      tags:
+      - Products
+      summary: Registro de producto.
+      description: Registro de producto nuevo, debe tener un codigo diferente a los existente. Requiere estar logeado con usuario Admin o Premium.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/Products'
+        required: true
+      responses:
+        200:
+          description: Se registró el producto correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Products/Product'
+        404:
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/ProductError'
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'
+  /api/products/{pid}:
+    get:
+      tags:
+      - Products
+      summary: Busca producto por id.
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      responses:
+        200:
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Products/Product'
+        404:
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/ErrorGetById'
+    put:
+      tags:
+      - Products
+      summary: Editar producto.
+      description: Editar un producto existente, no es necesario cambiar todos los campos. Requiere estar logeado con usuario Admin o Premium.
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/Products'
+        required: true
+      responses:
+        200:
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Products/Product'
+        404:
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/ErrorGetById'
+    delete:
+      tags:
+      - Products
+      summary: Eliminar producto.
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      responses:
+        200:
+          description: Producto eliminado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Products/DeletedProduct'
+        404:
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/ErrorGetById'
+  /api/carts:
+    get:
+      tags:
+      - Carts
+      summary: Lista de carritos.
+      responses:
+        200: 
+          description: Lista de carritos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Carts/GetAllCarts'      
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'        
+    post:
+      tags:
+      - Carts
+      summary: Registro de carrito.
+      responses:
+        200:
+          description: Se registró el carrito correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Carts/NewCart'
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'
+  /api/carts/product/{pid}: #Add product to cart
+    post:
+      tags:
+      - Carts
+      summary: Añadir producto a carrito de usuario logeado.
+      description: Requiere estar logeado con usuario.
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      responses:
+        200:
+          description: Producto agregado a carrito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Carts/Cart'
+        404:
+          description: Carrito o Producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/ErrorGetById'
+  /api/carts/{cid}:
+    get:
+      tags:
+      - Carts
+      summary: Busca cart por id y devuelve los productos que contiene.
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: id referente al carrito
+          schema:
+            type: string
+      responses:
+        200:
+          description: Carrito encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Carts/Cart'
+        404:
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/ErrorGetById'
+    put:
+      tags:
+      - Carts
+      summary: Editar Carrito. (Agregar listado de productos)
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: id referente al carrito
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/ProductsArray'
+        required: true
+      responses:
+        200:
+          description: Carrito encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Carts/Cart'
+        404:
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/ErrorGetById'
+    delete:
+      tags:
+      - Carts
+      summary: Eliminar productos del carrito.
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: id referente al carrito
+          schema:
+            type: string
+      responses:
+        200:
+          description: Carrito vaciado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Carts/Cart'
+        404:
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/ErrorGetById'
+  /api/carts/{cid}/products/{pid}:
+    delete:
+      tags:
+      - Carts
+      summary: Eliminar producto deseado de carrito.
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: id referente al carrito
+          schema:
+            type: string
+        - in: path
+          name: pid
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      responses:
+        200:
+          description: Carrito modificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Carts/Cart'
+        404:
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema: '#/components/schema/Errors/ErrorGetById'
+    put:
+      tags:
+      - Carts
+      summary: Actualizar cantidad de Producto deseado en Carrito.
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: id referente al carrito
+          schema:
+            type: string
+        - in: path
+          name: pid
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/ProductQuantity'
+        required: true
+      responses:
+        200:
+          description: Carrito actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Carts/Cart'
+        404:
+          description: Carrito o producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/ErrorGetById'
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'
+  /users:
+    get:
+      tags:
+      - Users
+      summary: Obtener todos los usuarios
+      responses:
+        200:
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/GetAllUsers'
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'
+    delete:
+      tags:
+      - Users
+      summary: Desactivar usuarios por inactividad
+      description: Desactiva todos los usuarios que no hayan tenido conexión en los últimos 2 días. (Requiere logeo admin user/premium)
+      responses:
+        200:
+          description: Lista de usuarios desactivados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/UsersEmails'
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'
+        401:
+          description: No autorizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/Unauthorized'
+  /users/register-api-client:
+    post:
+      tags:
+      - Users
+      summary: Registro de usuario
+      description: Registar un nuevo usuario en el sistema
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/RegisterUser'
+        required: true
+      responses:
+        200:
+          description: Usuario creado correctamente
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"msg": "Usuario registrado correctamente"}
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'
+        401:
+          description: No autorizado. Usuario existente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/Unauthorized'
+  /users/resetpass:
+    post:
+      tags:
+      - Users
+      summary: Restablecer password de usuario
+      description: Envia mail al usuario para reestablecer la contraseña. Debe estar el usuario logeado
+      responses:
+        200:
+          description: Email enviado correctamente
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"msg": "Email reset pass send Ok"}
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'
+        401:
+          description: No autorizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/Unauthorized'
+  /users/premium/{uid}:
+    get:
+      tags:
+      - Users
+      summary: Cambiar rol de usuario
+      description: Cambia rol del usuario de 'user' a 'premium' y vicerversa.
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          description: id referente al usuario
+          schema:
+            type: string
+      responses:
+        200:
+          description: Rol de usuario cambiado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schema/Users/User'
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'
+        401:
+          description: No autorizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/Unauthorized'
+  /api/sessions/current:
+    get:
+      tags:
+      - Sessions
+      summary: Ver datos de sesión de usuario logeado
+      description: Ver datos de usuario logeado. Debe haber logeo previo
+      responses:
+        200:
+          description: Session de usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/Session'
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'
+        401:
+          description: No autorizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/Unauthorized'
+  /ticket/purchase:
+    post:
+      tags:
+      - Ticket
+      summary: Crea ticket de compra de usuario
+      description: Crea ticket de compra de usuario logeado. Debe haber logeo previo y productos en su carrito.
+      responses:
+        200:
+          description: Ticket de compra de usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Ticket/TicketOk'
+        500: 
+          description: Error del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/InternalServerError'
+        401:
+          description: No autorizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Errors/Unauthorized'
+  

@@ -1,0 +1,305 @@
+components:
+  schema:
+    Products:
+      Product:
+        type: object
+        properties:
+          id:
+            type: string
+            description: Id del producto.
+          title:
+            type: string
+            description: Nombre del producto.
+          description:
+            type: string
+            description: Descripcion del producto.
+          code:
+            type: string
+            description: Codigo del producto.
+          price:
+            type: integer
+            description: Precio del producto.
+          status:
+            type: boolean
+            description: Estado del producto.
+          stock: 
+            type: integer
+            description: Cantidad disponible del producto.
+          category:
+            type: string
+            description: Categoria del producto.
+          thumbnails:
+            type: array
+            description: Fotos del producto.
+          owner:
+            type: string
+            description: Creador del producto.
+        example:
+          id: 66c3f262a046cd4c5a4b5e51
+          title: Yerba mate Amanda
+          description: Yerba Amanda 500gr
+          code: 999zzz
+          price: 2000
+          status: true
+          stock: 100
+          category: Desayuno y Merienda
+          thumbnails: ["/Img1.png","/Img2.png"]
+          owner: admin 
+      GetAllProducts:
+        type: array
+        items:
+          properties:
+            id:
+              type: string
+              description: Id del producto.
+            title:
+              type: string
+              description: Nombre del producto.
+            description:
+              type: string
+              description: Descripcion del producto.
+            code:
+              type: string
+              description: Codigo del producto.
+            price:
+              type: integer
+              description: Precio del producto.
+            status:
+              type: boolean
+              description: Estado del producto.
+            stock: 
+              type: integer
+              description: Cantidad disponible del producto.
+            category:
+              type: string
+              description: Categoria del producto.
+            thumbnails:
+              type: array
+              description: Fotos del producto.
+            owner:
+              type: string
+              description: Creador del producto.
+          example:
+            id: 66c3f262a046cd4c5a4b5e51
+            title: Yerba mate Amanda
+            description: Yerba Amanda 500gr
+            code: 999zzz
+            price: 2000
+            status: true
+            stock: 100
+            category: Desayuno y Merienda
+            thumbnails: ["/Img1.png","/Img2.png"]
+            owner: admin
+      DeletedProduct:
+        type: object
+        properties:
+          msg:
+            type: string
+            description: Product successfully removed   
+        example:
+          msg: Product successfully removed
+    Carts:
+      Cart:
+        type: object
+        properties:
+          id:
+            type: string
+            description: Id del carrito.
+          products:
+            type: array
+            description: Productos del carrito
+        example:
+          id: 6695bdfefcad76bf4ae37d7f
+          products: [{quantity: 2, product: "667416b9a7fd9e314e713adc"}]
+      NewCart:
+        type: object
+        properties:
+          _id:
+            type: string
+            description: Id del carrito.
+          products:
+            type: array
+            description: Productos del carrito
+        example:
+          products: []
+          _id: 6695bdfefcad76bf4ae37d7f
+      GetAllCarts:
+        type: array
+        items:
+          properties:
+            id:
+              type: string
+              description: Id del carrito.
+            products:
+              type: array
+              description: Productos del carrito
+          example:
+            id: 66c3f262a046cd4c5a4b5e51
+            products: [
+                        {
+                          "quantity": 20,
+                          "product": "667416b9a7fd9e314e713adc"
+                        }
+                      ]
+    Errors:
+      InternalServerError:
+        type: object
+        properties:
+          msg:
+            type: string
+            description: Error del servidor
+        example:
+          msg: Internal Server Error
+      ErrorGetById:
+        type: object
+        properties:
+          msg:
+            type: string
+            description: No se encontró el id en la base de datos   
+        example:
+          msg: No se encontró el id 7s89d7f9sd8fds9 en la base de datos
+      ProductError:
+        type: object
+        properties:
+          msg:
+            type: string
+            description: Producto con codigo existente o campos vacios   
+        example:
+          msg: Product with missing fields or with existing code
+      Unauthorized:
+        type: object
+        properties:
+          msg:
+            type: string
+            description: No autorizado   
+        example:
+          msg: Unauthorized
+    Login:
+      LoginOk:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Status OK.
+          message:
+            type: string
+            description: Mensaje OK.
+          data:
+            type: object
+            description: Data usuario.
+        example:
+          status: 200
+          message: Success
+          data: { msg: Autenticado correctamente }
+    Users:
+      GetAllUsers:
+        type: array
+        items:
+          properties:
+            first_name:
+              type: string
+              description: Nombre del usuario
+            last_name:
+              type: string
+              description: Apellido del usuario
+            email:
+              type: string
+              description: Email del usuario
+            role:
+              type: string
+              description: Rol del usuario
+          example:
+            first_name: juan
+            last_name: perez
+            email: juan.perez@mail.com
+            role: user
+      UsersEmails:
+        type: array
+        items:
+          properties:
+            email:
+              type: string
+              description: Email del usuario
+          example:
+            email: juan@perez.com
+      Session:
+        type: object
+        properties:
+          first_name:
+            type: string
+            description: Nombre del usuario
+          last_name:
+            type: string
+            description: Apellido del usuario
+          email:
+            type: string
+            description: Email del usuario
+          age:
+            type: integer
+            description: Edad del usuario
+          role:
+            type: string
+            description: Rol del usuario
+          cart:
+            type: object
+            description: Carrito perteneciente al usuario
+        example:
+          first_name: Juan
+          last_name: Perez
+          email: juan.perez@mail.com
+          age: 25
+          role: user
+          cart: { _id: "66c67ee1642b3288a0e2ec1c", products: [] }
+      User:
+        type: object
+        properties:
+          first_name:
+            type: string
+            description: Nombre del usuario
+          last_name:
+            type: string
+            description: Apellido del usuario
+          email:
+            type: string
+            description: Email del usuario
+          age:
+            type: integer
+            description: Edad del usuario
+          role:
+            type: string
+            description: Rol del usuario
+          cart:
+            type: string
+            description: id de carrito del usuario
+        example:
+          first_name: juan
+          last_name: perez
+          email: juan.perez@mail.com
+          age: 30
+          role: user
+          cart: 66aadf82dfe23c7b8020d865
+    Ticket:
+      TicketOk:
+        type: object
+        properties:
+          code:
+            type: string
+            description: Codigo del ticket
+          purchase_datetime:
+            type: string
+            description: Fecha y hora del ticket
+          amount:
+            type: integer
+            description: Monto de compra del usuario
+          purchaser:
+            type: string
+            description: Email del comprador
+          _id:
+            type: string
+            description: Id del ticket generado
+        example:
+          code: 90456a6d-317f-44ea-96ea-167f58018055
+          purchase_datetime: 1/10/2024, 19:57:51
+          amount: 200
+          purchaser: juan@mail.com
+          _id: 66fc7e6f23087b9391573abc

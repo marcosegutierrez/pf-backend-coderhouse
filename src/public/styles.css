@@ -1,0 +1,112 @@
+body {
+  background-color: #c5d8f6;
+  font-family: 'Roboto', sans-serif;
+  align-items: center;
+}
+
+.box {
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 10%;
+  border: 1px solid #ddd;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, .5);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+h1,
+h2 {
+  text-align: center;
+}
+
+#chat-container {
+  max-width: 600px;
+  margin: 30px auto;
+  border: 1px solid #ddd;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, .5);
+}
+
+#chat-window {
+  padding: 14px 0;
+  margin: 0 20px;
+  border-bottom: 1px solid #e9e9e9;
+  color: #555;
+}
+
+#output p {
+  color: #aaa;
+  padding: 14px 0;
+  margin: 0 20px;
+}
+
+#actions p {
+  padding: 14px;
+  margin: 0 20px;
+  border-bottom: 1px solid #e9e9e9;
+  color: #555;
+}
+
+input {
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  background: #b3d6b6;
+  border-radius: 4px;
+  font-size: 16px;
+  display: block;
+  width: 100%;
+}
+
+.login-register {
+  background: #66d857;
+  color: #fff;
+  font-size: 19px;
+  border: 0;
+  padding: 12px 0;
+  width: 100%;
+  border-radius: 0 0 2px 2px;
+  cursor: pointer;
+}
+
+button {
+  background-color: #4CAF50;
+  color: #fff;
+  font-size: 19px;
+  padding: 12px 0;
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #24292e;
+}
+
+#login-github,
+.register-button {
+  background-color: #333;
+  color: white;
+  margin-top: 10px;
+}
+
+#login-github:hover {
+  background-color: #24292e;
+}
+
+.register-button {
+  background-color: #4CAF50;
+}
+
+.register-button:hover {
+  background-color: #45a049;
+}
+
+label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
