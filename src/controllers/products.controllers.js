@@ -8,9 +8,8 @@ export const getProducts = async (req, res, next) => {
         const products = await services.getProducts();
         if (req.session.email) {
             const docs = products.docs
-            res.render('home2', {docs: docs, req: req})
+            res.render('home2', {docs: docs, req: req}) // Envío de docs y datos del usuario
         } else return httpResponse.Ok(res, products);
-        
     } catch (error) {
         next(error);
     }

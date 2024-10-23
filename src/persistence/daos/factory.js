@@ -12,7 +12,7 @@ let persistence = process.argv[2];
 
 switch (persistence) {
     case 'fs': // persistence filesystem no funcional para deploy web
-        logger.debug("Persistence: ", persistence);
+        logger.debug("Persistence: ", persistence, "no funcional para deploy");
         // prodDao = new ProductsManagerFS(`${__dirname}/persistence/daos/filesystem/data/products.json`);
         // cartDao = new CartsManagerFS(`${__dirname}/persistence/daos/filesystem/data/carts.json`);
         break;

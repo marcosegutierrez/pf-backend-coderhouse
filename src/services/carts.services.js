@@ -16,7 +16,7 @@ export const addProductToCart = async (cid, pid, email, role) => {
         if (!existCart) return null;
         const existProd = await prodDao.getProductById(pid);
         if (!existProd) return null;
-        if (existProd.owner === email && role === "premium") return null;
+        if (existProd.owner === email && role === "premium") return null; // No puede añadir un producto que es suyo
         return await cartDao.addProductToCart(pid, cid);
     } catch (error) {
         throw new Error(error);

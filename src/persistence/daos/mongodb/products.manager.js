@@ -5,7 +5,7 @@ export default class ProductsManagerMongo {
     async addProduct(obj, role, email) {
         let owner = 'admin';
         if (role === 'premium') {
-            owner = email;
+            owner = email; // Se establece como owner el mail del usuario premium
         }
         const product = await ProductModel.create({owner, ...obj});
         return product;
@@ -36,6 +36,7 @@ export default class ProductsManagerMongo {
     async updateProduct(id, obj, role, email = null) {
        try {
             const productToUpdate = await ProductModel.findById(id);
+            if (!productToUpdate) return null;
             let product = null;
             if (role === "premium" && productToUpdate.owner === email) {
                 product = await ProductModel.findByIdAndUpdate(id, obj, {new: true});
@@ -50,8 +51,9 @@ export default class ProductsManagerMongo {
 
     async deleteProduct(id, role, email) {
         try {
-            if (id.length != 24) return null
+            if (id.length != 24) return null;
             const productToDelete = await ProductModel.findById(id);
+            if (!productToDelete) return null;
             let product = null;
             if (role === "premium" && productToDelete.owner === email) {
                 product = await ProductModel.findByIdAndDelete(id);

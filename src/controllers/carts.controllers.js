@@ -37,7 +37,7 @@ export const getCartById = async (req, res, next) => {
     try {
         const {cid} = req.params;
         const cart = await services.getCartById(cid);
-        if(cart) return httpResponse.Ok(res, cart.products);
+        if(cart) return httpResponse.Ok(res, cart.products); // Retorna los productos de dicho carrito
         return httpResponse.NotFound(res, {msg: "Cart not found"});
     } catch (error) {
         next(error);
@@ -55,6 +55,7 @@ export const deleteProductToCart = async (req, res, next) => {
     }
 }
 
+// Agrega listado de productos a carrito seleccionado
 export const updateCart = async (req, res, next) => {
     try {
         const {cid} = req.params;
@@ -67,6 +68,7 @@ export const updateCart = async (req, res, next) => {
     }
 }
 
+// Modificar cantidad de producto deseado en carrito seleccionado
 export const updateProductToCart = async (req, res, next) => {
     try {
         const {cid, pid} = req.params;
@@ -79,6 +81,7 @@ export const updateProductToCart = async (req, res, next) => {
     }
 }
 
+// Vaciar carrito de productos
 export const deleteCart = async (req, res, next) => {
     try {
         const {cid} = req.params;
