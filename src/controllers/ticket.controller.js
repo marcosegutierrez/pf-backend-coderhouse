@@ -8,7 +8,6 @@ const userDao = new UserManager(UserModel);
 const httpResponse = new HttpResponse();
 
 export default class TicketController {
-
   async generateTicket(req, res, next) {
     try {
       const user = await userDao.getUser(req.session.email);

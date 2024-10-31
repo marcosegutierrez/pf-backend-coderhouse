@@ -26,7 +26,7 @@ export const loginResponse = async (req, res, next) => {
     const user = await services.getUserById(id);
     if (!user) return httpResponse.Unauthorized(res, { msg: 'Error de autenticacion' });
     else {
-      sessionUser(req, user);
+      sessionUser(req, user); // Guarda datos de sesion
       res.redirect('/api/products');
     }
   } catch (error) {
@@ -34,6 +34,7 @@ export const loginResponse = async (req, res, next) => {
   }
 };
 
+// Sin redireccion web
 export const loginResponseApiClient = async (req, res, next) => {
   try {
     let id = null;
@@ -49,6 +50,7 @@ export const loginResponseApiClient = async (req, res, next) => {
   }
 };
 
+// Sin redireccion web
 export const registerResponseApiClient = (req, res, next) => {
   try {
     return httpResponse.Ok(res, { msg: "Usuario registrado correctamente" });
@@ -85,7 +87,7 @@ export const updatePass = async (req, res, next) => {
   try {
     const user = await services.getUser(req.session.email);
     const pass = req.body.password;
-    const { tokenPass } = req.cookies;
+    const { tokenPass } = req.cookies; // token de 1hs
     if (!tokenPass) return httpResponse.Unauthorized(res, {msg: 'Unhautorized'});
     const updPass = await services.updatePass(pass, user);
     if(!updPass) return httpResponse.NotFound(res, {msg: 'Cannot be the same'});

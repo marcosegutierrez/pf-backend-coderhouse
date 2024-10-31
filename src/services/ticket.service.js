@@ -24,10 +24,10 @@ export default class TicketService{
           if (prodInCart.quantity <= prodDB.stock) {
             const amount = prodInCart.quantity * prodDB.price;
             amountAcc += amount;
-            const newStock = prodDB.stock - prodInCart.quantity
-            const product = await productServices.updateProduct(idProd, {"stock": newStock}, "admin")
+            const newStock = prodDB.stock - prodInCart.quantity;
+            await productServices.updateProduct(idProd, {"stock": newStock}, "admin");
           } else {
-            this.prodsOutTicket.push(idProd);
+            this.prodsOutTicket.push(idProd); // Productos que superan la cantidad del stock
           }
         }
       }
@@ -38,10 +38,10 @@ export default class TicketService{
         purchaser: user.email,
       });
 
-      await cartServices.deleteCart(user.cart);
+      await cartServices.deleteCart(user.cart); // Se vacía el carrito de compras
       
       for (const pid of this.prodsOutTicket) {
-        await cartServices.addProductToCart(user.cart, pid);
+        await cartServices.addProductToCart(user.cart, pid); // Agregamos productos que quedaron fuera del Tk.
       }
 
       return ticket;
