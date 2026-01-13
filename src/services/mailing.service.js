@@ -16,7 +16,7 @@ const createMsgRegister = name =>
     `<h1>Hola ${name}, ¡Bienvenido/a al Ecomerce!</h1>`;
 
 const createMsgReset = name => 
-    `<p>¡Hola ${name}! Hacé click <a href="http://localhost:8080/updatepass">AQUÍ</a> 
+    `<p>¡Hola ${name}! Hacé click <a href="https://pf-backend-coderhouse.vercel.app/updatepass">AQUÍ</a> 
         para restablecer tu contraseña.
     </p>`;
 
